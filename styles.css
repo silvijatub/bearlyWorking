@@ -838,10 +838,10 @@ hr.solid {
 
     .container {
         position: absolute;
-        top: 35%;
+        top: 30%;
         right: 25%; 
         left: 25%;
-        transform: translate(-50%, -50%);
+        /* transform: translate(-50%, -50%); */
         transform: scale(1.5);
         transition: transform 0.5s;
     }
@@ -851,7 +851,7 @@ hr.solid {
     }
 
     #popup-to-do, #popup-notes{    
-        width: 450px;
+        /* width: 450px; */
         margin-left: auto;
         margin-right: auto;
         transform: scale(1);
@@ -859,6 +859,7 @@ hr.solid {
         transition: margin-left 1s,
         margin-right 1s;
     }
+
    
 }
  
@@ -877,7 +878,7 @@ hr.solid {
 
     #popup-to-do, #popup-notes{  
         margin-bottom: 10%; 
-        transform: scale(0.8);
+        transform: scale(0.9);
         /* margin-top: -2%; */
         transition: margin-left 1s,
         margin-right 1s;
