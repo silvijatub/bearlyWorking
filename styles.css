@@ -6,6 +6,8 @@
     z-index: 0; /* Fonas bus pačioje apačioje */
     background-size: cover;
     background-position: center;
+    overflow-y: auto;
+    overflow-x: auto;
 }
 
 /* Permatomas overlay ant fono */
