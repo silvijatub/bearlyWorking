@@ -849,7 +849,7 @@ hr.solid {
         width: 400px;
         margin-left: auto;
         margin-right: auto;
-        transform: scale(0.8);
+        transform: scale(0.5);
         /* margin-top: -2%; */
         transition: margin-left 1s,
         margin-right 1s;
