@@ -887,6 +887,14 @@ hr.solid {
         transition: margin-left 1s,
         margin-right 1s;
     }
+
+    .notesDiv {
+        max-height: 400px;
+    }
+
+    #list-container {
+        max-height: 315px; 
+    }
 }
 
 #info-popup li{
