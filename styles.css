@@ -849,16 +849,15 @@ hr.solid {
         width: 400px;
         margin-left: auto;
         margin-right: auto;
-        transform: scale(0.5);
+        transform: scale(0.9);
         /* margin-top: -2%; */
         transition: margin-left 1s,
         margin-right 1s;
     }
    
-    
 }
  
-@media (max-width: 800px) {
+@media (max-width: 768px) {
         
     .quote {
         left: 50%;
@@ -870,8 +869,15 @@ hr.solid {
         color: rgb(255, 219, 240); /* Change to your preferred color */
         background-color: rgba(252, 251, 251, 0);
     }
-}
 
+    #popup-to-do, #popup-notes{  
+        margin-bottom: 10%; 
+        transform: scale(0.5);
+        /* margin-top: -2%; */
+        transition: margin-left 1s,
+        margin-right 1s;
+    }
+}
 #info-popup li{
     margin-bottom: 5px;
     color:#494949;
