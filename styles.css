@@ -872,12 +872,23 @@ hr.solid {
 
     #popup-to-do, #popup-notes{  
         margin-bottom: 10%; 
-        transform: scale(0.5);
+        transform: scale(0.8);
         /* margin-top: -2%; */
         transition: margin-left 1s,
         margin-right 1s;
     }
 }
+
+@media screen and (max-height: 720px) {
+    #popup-to-do, #popup-notes{  
+        margin-bottom: 500px; 
+        transform: scale(0.8);
+        /* margin-top: -2%; */
+        transition: margin-left 1s,
+        margin-right 1s;
+    }
+}
+
 #info-popup li{
     margin-bottom: 5px;
     color:#494949;
