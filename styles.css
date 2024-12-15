@@ -273,11 +273,12 @@ body {
 #popup-to-do{
     display: none; 
     width: 400px;
+    /* width: 25%; */
     margin-left: 50px;
     padding: 20px;
     border-radius: 10px;
     background-color:  rgba(31, 48, 38, 0.685);
-    max-height: 600px;
+    max-height: 60%;
     scale: 0.9;
     transition: all 0.5s;
 }
@@ -380,6 +381,7 @@ ul li span{
     display: none; 
     background-color: rgba(31, 48, 38, 0.685);
     width: 400px;
+    /* width: 30%; */
     min-height: 0px;
     padding: 20px;
     padding-top: 0px;
@@ -387,7 +389,7 @@ ul li span{
     margin-right: 50px;
     border-radius: 10px;
     cursor: pointer;
-    max-height: 625px;
+    max-height: 60%;
 
     scale: 0.9;
     transition: all 0.5s;
@@ -409,8 +411,9 @@ ul li span{
     text-align: left;
 }
 .notesDiv {
-    width: 400px;
-    max-height: 530px;
+    width: 100%;
+    /* max-height: 530px; */
+    height: 85%;
     overflow-y: auto; /* Enable vertical scrolling */
     color: #ffffff;
     margin-top: -33px;
@@ -848,7 +851,7 @@ hr.solid {
     }
 
     #popup-to-do, #popup-notes{    
-        width: 400px;
+        width: 450px;
         margin-left: auto;
         margin-right: auto;
         transform: scale(1);
@@ -909,6 +912,8 @@ body{
     scrollbar-width: thin;
     scrollbar-color: #b68eb4 rgba(255, 255, 255, 0);
     border-radius: 10px;
+    overflow-y: auto;
+    overflow-x: auto;
   }
   
   /* Works on Chrome, Edge, and Safari */
