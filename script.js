@@ -330,7 +330,7 @@ function loadPomodoroCount() {
     } else {
         // Reset count if the day has changed
         pomodoroSessionsCount = 0;
-        localStorage.setItem('pomodoroCount', currentDate);
+        localStorage.setItem('pomodoroCount', 0);
         localStorage.setItem('lastUpdatedDate', currentDate);
     }
 
@@ -340,7 +340,7 @@ function loadPomodoroCount() {
 // Save the count to localStorage
 function savePomodoroCount() {
     const currentDate = new Date().toISOString().split('T')[0];
-    localStorage.setItem('pomodoroCount', 0);
+    localStorage.setItem('pomodoroCount', pomodoroSessionsCount);
     localStorage.setItem('lastUpdatedDate', currentDate);
 }
 
