@@ -255,13 +255,18 @@ window.addEventListener('resize', function () {
 
 // UPDATE AUDIO SOURCE 
 
+
+const playMusicBtn = document.getElementById('play-music-btn');
+const audio = document.getElementById('audio');
+const volume = document.getElementById('volume-control');
+
 function updateAudioSource() {
     // Get the audio element and the dropdown selection
-    const backgroundSound = document.getElementById('audio');
     const selectedSound = document.getElementById('audio-selection').value;
 
-    backgroundSound.src = selectedSound;
-    backgroundSound.load();
+    audio.src = selectedSound;
+    audio.load();
+    playMusicBtn.classList.remove('crossed-off');
 
     console.log(`Notification sound changed to: ${selectedSound}`);
 }
@@ -278,12 +283,6 @@ volumeControl.addEventListener('input', (event) => {
 });
 
 //----------------------------------------------------------------------------------------------
-
-// BACKGROUND MUSIC
-
-const playMusicBtn = document.getElementById('play-music-btn');
-const audio = document.getElementById('audio');
-const volume = document.getElementById('volume-control');
 
 playMusicBtn.addEventListener('click', () => {
     if (audio.paused) {    
