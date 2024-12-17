@@ -165,8 +165,8 @@ document.getElementById('plus-btn').addEventListener('click', function () {
     notesBtn.style.display = 'none';
     plusBtn.style.display = 'none';
     minusBtn.style.display = 'block';
-    
-
+    popupNotes.style.backgroundColor = 'rgba(31, 48, 38, 0)';
+    popupToDo.style.backgroundColor = 'rgba(31, 48, 38, 0)';
      timerSection.style.transform = 'scale(1.5)';
      timerSection.style.transition = 'transform 0.5s';
 
@@ -194,6 +194,8 @@ document.getElementById('minus-btn').addEventListener('click', function () {
     minusBtn.style.display = 'none';
     timerSection.style.transform = 'scale(1)';
     timerSection.style.transition = 'transform 0.5s';
+    popupNotes.style.backgroundColor = 'rgba(31, 48, 38, 0.685)';
+    popupToDo.style.backgroundColor = 'rgba(31, 48, 38, 0.685)';
     quoteElement.classList.remove('top');
 
 
@@ -233,6 +235,8 @@ window.addEventListener('resize', function () {
         if (isExpanded) {
             popupToDo.style.display = 'none';
             popupNotes.style.display = 'none';
+            popupNotes.style.backgroundColor = 'rgba(31, 48, 38, 0.685)';
+            popupToDo.style.backgroundColor = 'rgba(31, 48, 38, 0.685)';
         }
 
         isExpanded = false; 
