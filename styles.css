@@ -903,6 +903,10 @@ hr.solid {
         transition: margin-left 1s,
         margin-right 1s;
     }
+
+    .top-bar-title{
+        transform: scale(0.6);
+     }
 }
 
 @media screen and (max-height: 720px) {
