@@ -909,6 +909,20 @@ hr.solid {
      }
 }
 
+@media (max-width: 400px) {
+
+
+    #popup-to-do, #popup-notes{  
+        margin-bottom: 10%; 
+        transform: scale(0.8);
+        /* margin-top: -2%; */
+    }
+
+    .top-bar-title{
+        transform: scale(0.6);
+     }
+}
+
 @media screen and (max-height: 720px) {
     #popup-to-do, #popup-notes{  
         margin-bottom: 500px; 
