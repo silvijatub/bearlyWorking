@@ -76,7 +76,7 @@ body {
 }
 
 .top-bar-title{
-    width: 20%;
+    max-width: 20%;
     display: flex;
     align-items: center;
     padding-left: 40px;
@@ -756,7 +756,7 @@ hr.solid {
 }
 
 .logo {
-    width: 60px; 
+    max-width: 60px; 
     height: auto; /* Maintains aspect ratio */
     margin-right: 10px; /* Space between logo and text */
 }
@@ -813,14 +813,14 @@ hr.solid {
         width 0.5s ease;
     }
 
-    .top-bar-title{
-        width: 100%;
+    /* .top-bar-title{
+        width: 20%;
         display: flex;
         align-items: center;
         font-weight: 600;
         color: #ffffff;
         font-size: x-large;   
-    }
+    } */
 
     #top-bar {
         display: flex;
