@@ -41,10 +41,10 @@
                                 <p id="seconds"></p>
                             </div>               
                         <div class="controls">
-                            <button id="start" onclick="start()"><i class="fa-solid fa-play"></i></button>
-                            <button id="stop" onclick="stopTimer()"><i class="fa-solid fa-pause"></i></button>  
-                            <button id="resume" onclick="resumeTimer()"><i class="fa-solid fa-eject fa-rotate-90"></i></button> 
-                            <button id="reset" onclick="resetTimer()"><i class="fa-solid fa-arrow-rotate-right"></i></button> 
+                            <button id="start" onclick="start()" aria-label="Start timer"><i class="fa-solid fa-play"></i></button>
+                            <button id="stop" onclick="stopTimer()"  aria-label="Stop timer"><i class="fa-solid fa-pause"></i></button>  
+                            <button id="resume" onclick="resumeTimer()"  aria-label="Resume timer"><i class="fa-solid fa-eject fa-rotate-90"></i></button> 
+                            <button id="reset" onclick="resetTimer()" aria-label="Restart timer"><i class="fa-solid fa-arrow-rotate-right"></i></button> 
                                   
                         </div>    
                     </div>
@@ -65,7 +65,7 @@
                 <h2 class="todoTitle">TO-DO LIST</h2>
                 <div class="row">
                     <input type="text" id="input-box" placeholder="Add your task">
-                    <button class="btn" onclick="addTask()">Add</button>
+                    <button class="btn" onclick="addTask()"  aria-label="Add task">Add</button>
                 </div>
                 <ul id="list-container"></ul>
             </div>
@@ -73,7 +73,7 @@
             <div id="popup-notes">
                 <div  class="notesDivTitle">
                     <h2 style="margin-right: 20px;">NOTES</h2>   
-                    <button class="btn2" id="createBtn" onclick="createNote()">+</button>
+                    <button class="btn2" id="createBtn" onclick="createNote()"  aria-label="Create note">+</button>
                 </div>
                 <div class="notesDiv" id="notesDiv">
                     <div class="notes-container"> </div>       
@@ -90,9 +90,9 @@
 
            <!-- Buttons -->
         <div class="settings">
-            <button id="information-btn"><i class="fa-solid fa-circle-info"></i></button>
-            <button id="settings-btn"><i class="fa-solid fa-cog"></i></button>
-            <button id="play-music-btn" class="crossed-off">
+            <button id="information-btn"  aria-label="Information"><i class="fa-solid fa-circle-info"></i></button>
+            <button id="settings-btn"  aria-label="Settings"><i class="fa-solid fa-cog"></i></button>
+            <button id="play-music-btn" class="crossed-off"  aria-label="Music">
                 <i class="fas fa-music"></i>
             </button>
             <audio id="audio" style="display:none;" src="./sounds/rain.mp3" controls autoplay loop></audio>              
