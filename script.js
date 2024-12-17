@@ -111,6 +111,8 @@ const plusBtn = document.getElementById('plus-btn');
 const minusBtn = document.getElementById('minus-btn');
 const timerSection = document.querySelector('.container');
 
+const title = document.querySelector('.top-bar-title');
+
 // TO DO BUTTON
 document.getElementById('to-do-btn').addEventListener('click', function() {
 
@@ -159,6 +161,9 @@ document.getElementById('plus-btn').addEventListener('click', function () {
     topBar.classList.add('expanded');
     timerSection.classList.add('expanded');
     overlayy.classList.add('expanded');
+   
+    title.classList.add('expanded');
+
     popupToDo.style.display = 'block';
     popupNotes.style.display = 'block';
     todoBtn.style.display = 'none';
@@ -170,6 +175,7 @@ document.getElementById('plus-btn').addEventListener('click', function () {
      timerSection.style.transform = 'scale(1.5)';
      timerSection.style.transition = 'transform 0.5s';
 
+
     quoteElement.classList.add('top');
 
     isExpanded = true; // Set expanded state
@@ -178,6 +184,7 @@ document.getElementById('plus-btn').addEventListener('click', function () {
 // Handle Minus Button Click
 document.getElementById('minus-btn').addEventListener('click', function () {
    
+    title.classList.remove('expanded');
 
     popupToDo.style.transform = 'scale(1)';
     popupNotes.style.transform = 'scale(1)';
@@ -213,6 +220,7 @@ window.addEventListener('resize', function () {
         popupToDo.style.transition = 'transform 0.5s';
         popupNotes.style.transform = 'scale(0.9)';
         popupNotes.style.transition = 'transform 0.5s';
+        title.classList.add('expanded');
     }
     if (width > 1350 && isExpanded == true){
         popupToDo.style.transform = 'scale(1)';
@@ -225,13 +233,14 @@ window.addEventListener('resize', function () {
         topBar.classList.remove('expanded');
         timerSection.classList.remove('expanded');
         overlayy.classList.remove('expanded');
-        
+        title.classList.remove('expanded');
         todoBtn.style.display = 'block';
         notesBtn.style.display = 'block';
         plusBtn.style.display = 'none';
         minusBtn.style.display = 'none';
         timerSection.style.transform = 'scale(1.5)';
         quoteElement.classList.remove('top');
+  
         if (isExpanded) {
             popupToDo.style.display = 'none';
             popupNotes.style.display = 'none';
@@ -250,6 +259,7 @@ window.addEventListener('resize', function () {
             plusBtn.style.display = 'block';
             minusBtn.style.display = 'none';
             timerSection.classList.remove('expanded');
+            title.classList.remove('expanded');
             timerSection.style.transform = 'scale(1)';
         }
     }

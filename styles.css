@@ -79,17 +79,21 @@ body {
     max-width: 20%;
     display: flex;
     align-items: center;
-    padding-left: 40px;
+    padding-left: 3%;
     font-weight: 600;
     color: #ffffff;
     font-size: x-large;
+}
+
+.top-bar-title.expanded{
+    padding-top: 30px;
 }
 
 .top-bar-plus{
     width: 20%;
     display: flex;
     justify-content: end;
-    padding-right: 40px;
+    padding-right: 3%;
     align-items: center;
     font-weight: 600;
     color: #ffffff;
@@ -824,6 +828,7 @@ hr.solid {
 
     .top-bar-title{
        transform: scale(0.8);
+       padding-top: 0px;
     }
 
     
@@ -851,7 +856,6 @@ hr.solid {
         display: flex; /* Hide To-Do and Notes buttons */
         flex-direction: column;
         align-items: end;
-        
         padding-left: 0%;
         padding-right: 0%;
     }
@@ -933,6 +937,7 @@ hr.solid {
     }
     .notesDiv {
         max-height: 400px;
+        
     }
 
     #list-container {
