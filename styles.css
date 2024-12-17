@@ -756,7 +756,7 @@ hr.solid {
 }
 
 .logo {
-    width: 25%; 
+    width: 60px; 
     height: auto; /* Maintains aspect ratio */
     margin-right: 10px; /* Space between logo and text */
 }
