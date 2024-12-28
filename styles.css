@@ -495,7 +495,9 @@ ul li span{
     scrollbar-width: none; /* Hide scrollbar in Firefox */
 }
 
-
+#popup-to-do.open, #popup-notes.open{
+    background-color: rgba(58, 82, 67, 0);
+}
 
 /* --------------------------------------------------------------------------- */
 
