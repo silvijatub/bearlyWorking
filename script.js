@@ -325,7 +325,7 @@ document.addEventListener("DOMContentLoaded", function () {
         Notification.requestPermission().then(permission => {
             if (permission === "granted") {
                 console.log("Notification permission granted.");
-                sendNotification("Welcome Back!", "Notifications are enabled for this session.");
+                // sendNotification("Welcome Back!", "Notifications are enabled for this session.");
             } else {
                 console.log("Notification permission denied.");
             }
@@ -340,15 +340,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 //NOTIFICATIONS 
-
-
+var playSound = false;
 function sendNotification(title, message) {
     if (Notification.permission === "granted") {
         console.log("Sending notification:", title, message);
         new Notification(title, {
             body: message,
-            icon: "img/circle.png" // Pakeiskite pagal poreikį
+            icon: "img/logo2.png" 
         });
+
+         // Play sound only if explicitly requested
+         if (playSound) {
+            playNotificationSound();
+        }
+
     } else {
         console.warn("Notifications are not permitted. Current permission:", Notification.permission);
     }
@@ -474,8 +479,9 @@ function handleSessionEnd() {
         workTitle.classList.remove('active');
         remainingTime = shortBreakTime * 60;
         breakCount++;
-        endWorkSession();
         sendNotification("Time for a break!", "You've completed a work session. Take a short break.");
+        endWorkSession();
+  
     } else if (breakCount === 6) {
         // Long break
         longBreakTitle.classList.add('active');
@@ -483,8 +489,9 @@ function handleSessionEnd() {
         workTitle.classList.remove('active');
         remainingTime = longBreakTime * 60;
         breakCount++;
-        endWorkSession();
         sendNotification("Time for a long break!", "You've completed several sessions. Enjoy a longer break.");
+        endWorkSession();
+       
     } else if (breakCount === 7) {
         // Restart cycle after long break
         longBreakTitle.classList.remove('active');
