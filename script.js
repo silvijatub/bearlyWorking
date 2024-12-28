@@ -1,5 +1,6 @@
 //----------------------------------------------------------------------------------------------
 
+
 //BACKGROUND SETTINGS
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -111,8 +112,6 @@ const plusBtn = document.getElementById('plus-btn');
 const minusBtn = document.getElementById('minus-btn');
 const timerSection = document.querySelector('.container');
 
-const title = document.querySelector('.top-bar-title');
-
 // TO DO BUTTON
 document.getElementById('to-do-btn').addEventListener('click', function() {
 
@@ -161,20 +160,16 @@ document.getElementById('plus-btn').addEventListener('click', function () {
     topBar.classList.add('expanded');
     timerSection.classList.add('expanded');
     overlayy.classList.add('expanded');
-   
-    title.classList.add('expanded');
-
     popupToDo.style.display = 'block';
     popupNotes.style.display = 'block';
     todoBtn.style.display = 'none';
     notesBtn.style.display = 'none';
     plusBtn.style.display = 'none';
     minusBtn.style.display = 'block';
-    popupNotes.style.backgroundColor = 'rgba(31, 48, 38, 0)';
-    popupToDo.style.backgroundColor = 'rgba(31, 48, 38, 0)';
+ 
+
      timerSection.style.transform = 'scale(1.5)';
      timerSection.style.transition = 'transform 0.5s';
-
 
     quoteElement.classList.add('top');
 
@@ -184,7 +179,6 @@ document.getElementById('plus-btn').addEventListener('click', function () {
 // Handle Minus Button Click
 document.getElementById('minus-btn').addEventListener('click', function () {
    
-    title.classList.remove('expanded');
 
     popupToDo.style.transform = 'scale(1)';
     popupNotes.style.transform = 'scale(1)';
@@ -201,8 +195,6 @@ document.getElementById('minus-btn').addEventListener('click', function () {
     minusBtn.style.display = 'none';
     timerSection.style.transform = 'scale(1)';
     timerSection.style.transition = 'transform 0.5s';
-    popupNotes.style.backgroundColor = 'rgba(31, 48, 38, 0.685)';
-    popupToDo.style.backgroundColor = 'rgba(31, 48, 38, 0.685)';
     quoteElement.classList.remove('top');
 
 
@@ -220,7 +212,6 @@ window.addEventListener('resize', function () {
         popupToDo.style.transition = 'transform 0.5s';
         popupNotes.style.transform = 'scale(0.9)';
         popupNotes.style.transition = 'transform 0.5s';
-        title.classList.add('expanded');
     }
     if (width > 1350 && isExpanded == true){
         popupToDo.style.transform = 'scale(1)';
@@ -233,19 +224,16 @@ window.addEventListener('resize', function () {
         topBar.classList.remove('expanded');
         timerSection.classList.remove('expanded');
         overlayy.classList.remove('expanded');
-        title.classList.remove('expanded');
+        
         todoBtn.style.display = 'block';
         notesBtn.style.display = 'block';
         plusBtn.style.display = 'none';
         minusBtn.style.display = 'none';
         timerSection.style.transform = 'scale(1.5)';
         quoteElement.classList.remove('top');
-  
         if (isExpanded) {
             popupToDo.style.display = 'none';
             popupNotes.style.display = 'none';
-            popupNotes.style.backgroundColor = 'rgba(31, 48, 38, 0.685)';
-            popupToDo.style.backgroundColor = 'rgba(31, 48, 38, 0.685)';
         }
 
         isExpanded = false; 
@@ -259,7 +247,6 @@ window.addEventListener('resize', function () {
             plusBtn.style.display = 'block';
             minusBtn.style.display = 'none';
             timerSection.classList.remove('expanded');
-            title.classList.remove('expanded');
             timerSection.style.transform = 'scale(1)';
         }
     }
@@ -269,18 +256,13 @@ window.addEventListener('resize', function () {
 
 // UPDATE AUDIO SOURCE 
 
-
-const playMusicBtn = document.getElementById('play-music-btn');
-const audio = document.getElementById('audio');
-const volume = document.getElementById('volume-control');
-
 function updateAudioSource() {
     // Get the audio element and the dropdown selection
+    const backgroundSound = document.getElementById('audio');
     const selectedSound = document.getElementById('audio-selection').value;
 
-    audio.src = selectedSound;
-    audio.load();
-    playMusicBtn.classList.remove('crossed-off');
+    backgroundSound.src = selectedSound;
+    backgroundSound.load();
 
     console.log(`Notification sound changed to: ${selectedSound}`);
 }
@@ -297,6 +279,12 @@ volumeControl.addEventListener('input', (event) => {
 });
 
 //----------------------------------------------------------------------------------------------
+
+// BACKGROUND MUSIC
+
+const playMusicBtn = document.getElementById('play-music-btn');
+const audio = document.getElementById('audio');
+const volume = document.getElementById('volume-control');
 
 playMusicBtn.addEventListener('click', () => {
     if (audio.paused) {    
@@ -316,72 +304,43 @@ playMusicBtn.addEventListener('click', () => {
 });
 
 
-//POMODORO TIMER
-let workTitle = document.getElementById('work');
-let shortBreakTitle = document.getElementById('shortBreak');
-let longBreakTitle = document.getElementById('longBreak');
-
-let workTime = 25;  // Work duration in minutes
-let shortBreakTime = 5;  // Short break duration in minutes
-let longBreakTime = 15;  // Long break duration in minutes
-
-let seconds = 0;
-let interval;
-let pomodoroSessionsCount = 0;
-let breakCount = 0;
-let workMinutes;  // Store remaining minutes for resuming
+// //POMODORO TIMER
 
 
-// Load saved count and last date from localStorage
-function loadPomodoroCount() {
-    const savedCount = localStorage.getItem('pomodoroCount');
-    const savedDate = localStorage.getItem('lastUpdatedDate');
-    const currentDate = new Date().toISOString().split('T')[0];
-
-    if (savedDate === currentDate) {
-        pomodoroSessionsCount = parseInt(savedCount) || 0;
-    } else {
-        // Reset count if the day has changed
-        pomodoroSessionsCount = 0;
-        localStorage.setItem('pomodoroCount', 0);
-        localStorage.setItem('lastUpdatedDate', currentDate);
+// Request notification permission
+document.addEventListener("DOMContentLoaded", function () {
+    if (Notification.permission === "default") {
+        Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+                console.log("Notification permission granted.");
+                sendNotification("Welcome Back!", "Notifications are enabled for this session.");
+            } else {
+                console.log("Notification permission denied.");
+            }
+        });
+    } else if (Notification.permission === "granted") {
+        console.log("Notifications are already permitted.");
+    } else if (Notification.permission === "denied") {
+        console.log("Notifications are denied by the user.");
     }
+});
 
-    updatePomodoroCountDisplay();
+
+
+//NOTIFICATIONS 
+
+
+function sendNotification(title, message) {
+    if (Notification.permission === "granted") {
+        console.log("Sending notification:", title, message);
+        new Notification(title, {
+            body: message,
+            icon: "img/circle.png" // Pakeiskite pagal poreikį
+        });
+    } else {
+        console.warn("Notifications are not permitted. Current permission:", Notification.permission);
+    }
 }
-
-// Save the count to localStorage
-function savePomodoroCount() {
-    const currentDate = new Date().toISOString().split('T')[0];
-    localStorage.setItem('pomodoroCount', pomodoroSessionsCount);
-    localStorage.setItem('lastUpdatedDate', currentDate);
-}
-
-// Update the displayed Pomodoro count
-function updatePomodoroCountDisplay() {
-    document.getElementById('pomodoro-count').textContent = pomodoroSessionsCount;
-}
-
-// Increment the Pomodoro count after a session and update display
-function endWorkSession() {
-    pomodoroSessionsCount++;
-    updatePomodoroCountDisplay();
-    savePomodoroCount();
-}
-
-// Load count on page load
-window.onload = () => {
-    loadPomodoroCount();
-
-    document.getElementById('minutes').innerHTML = workTime < 10 ? '0' + workTime : workTime;
-    document.getElementById('seconds').innerHTML = "00";
-    workTitle.classList.add('active');
-
-    document.getElementById('start').style.display = "block";  
-    document.getElementById('resume').style.display = "none"; 
-    document.getElementById('reset').style.display = "none";  
-    document.getElementById('stop').style.display = "none";  
-};
 
 
 document.getElementById('save-settings-btn').addEventListener('click', function() {
@@ -417,73 +376,134 @@ function playNotificationSound() {
     });
 }
 
+// Pomodoro Timer
+let workTitle = document.getElementById('work');
+let shortBreakTitle = document.getElementById('shortBreak');
+let longBreakTitle = document.getElementById('longBreak');
+
+let workTime = 25; // Work duration in minutes
+let shortBreakTime = 5; // Short break duration in minutes
+let longBreakTime = 15; // Long break duration in minutes
+
+let interval;
+let startTime;
+let endTime;
+let remainingTime = workTime * 60; // Remaining time in seconds
+let pomodoroSessionsCount = 0;
+let breakCount = 0;
+
+// Load saved count and last date from localStorage
+function loadPomodoroCount() {
+    const savedCount = localStorage.getItem('pomodoroCount');
+    const savedDate = localStorage.getItem('lastUpdatedDate');
+    const currentDate = new Date().toISOString().split('T')[0];
+
+    if (savedDate === currentDate) {
+        pomodoroSessionsCount = parseInt(savedCount) || 0;
+    } else {
+        // Reset count if the day has changed
+        pomodoroSessionsCount = 0;
+        localStorage.setItem('pomodoroCount', 0);
+        localStorage.setItem('lastUpdatedDate', currentDate);
+    }
+
+    updatePomodoroCountDisplay();
+}
+
+// Save the count to localStorage
+function savePomodoroCount() {
+    const currentDate = new Date().toISOString().split('T')[0];
+    localStorage.setItem('pomodoroCount', pomodoroSessionsCount);
+    localStorage.setItem('lastUpdatedDate', currentDate);
+}
+
+// Update the displayed Pomodoro count
+function updatePomodoroCountDisplay() {
+    document.getElementById('pomodoro-count').textContent = pomodoroSessionsCount;
+}
+
+// Start the timer
 function start() {
+    startTime = Date.now();
+    endTime = startTime + remainingTime * 1000;
+
+    interval = setInterval(updateTimer, 1000);
+
     document.getElementById('start').style.display = "none";
     document.getElementById('resume').style.display = "none";
     document.getElementById('reset').style.display = "block";
     document.getElementById('stop').style.display = "block";
-
-    seconds = 59;  // Start with 59 seconds
-
-    workMinutes = workTime - 1;  // Set work time minutes based on updated settings
-    let shortBreakMinutes = shortBreakTime - 1;  // Updated short break time
-    let longBreakMinutes = longBreakTime - 1;  // Updated long break time
-
-    interval = setInterval(() => {
-        document.getElementById('minutes').innerHTML = workMinutes < 10 ? '0' + workMinutes : workMinutes;
-        document.getElementById('seconds').innerHTML = seconds < 10 ? '0' + seconds : seconds;
-
-        seconds--;
-
-        if (seconds < 0) {
-            seconds = 59;
-            workMinutes--;
-
-            if (workMinutes < 0) {
-
-              //  clearInterval(interval);
-                playNotificationSound(); // Play notification sound
-
-
-                if (breakCount === 0 || breakCount === 2 || breakCount === 4) {
-                    shortBreakTitle.classList.add('active');
-                    workTitle.classList.remove('active');
-                    workMinutes = shortBreakMinutes;
-                    breakCount++;
-                    endWorkSession();
-                } else if (breakCount === 6) {
-                    longBreakTitle.classList.add('active');
-                    shortBreakTitle.classList.remove('active');
-                    workTitle.classList.remove('active');
-                    workMinutes = longBreakMinutes;
-                    breakCount++;
-                    endWorkSession();
-                } else if (breakCount === 7) {
-                    longBreakTitle.classList.remove('active');
-                    workTitle.classList.add('active');
-                    workMinutes = workTime - 1;
-                    breakCount = 0;
-                } else {
-                    workTitle.classList.add('active');
-                    shortBreakTitle.classList.remove('active');
-                    workMinutes = workTime - 1;
-                    breakCount++;
-                }
-            }
-        }
-    }, 1000); // Update every second
 }
 
+// Update the timer
+function updateTimer() {
+    const now = Date.now();
+    remainingTime = Math.round((endTime - now) / 1000);
+
+    if (remainingTime <= 0) {
+        clearInterval(interval);
+        playNotificationSound();
+        handleSessionEnd();
+        return;
+    }
+
+    const minutes = Math.floor(remainingTime / 60);
+    const seconds = remainingTime % 60;
+
+    document.getElementById('minutes').innerHTML = minutes < 10 ? '0' + minutes : minutes;
+    document.getElementById('seconds').innerHTML = seconds < 10 ? '0' + seconds : seconds;
+}
+
+// Handle session end
+function handleSessionEnd() {
+    if (breakCount === 0 || breakCount === 2 || breakCount === 4) {
+        // Short break
+        shortBreakTitle.classList.add('active');
+        workTitle.classList.remove('active');
+        remainingTime = shortBreakTime * 60;
+        breakCount++;
+        endWorkSession();
+        sendNotification("Time for a break!", "You've completed a work session. Take a short break.");
+    } else if (breakCount === 6) {
+        // Long break
+        longBreakTitle.classList.add('active');
+        shortBreakTitle.classList.remove('active');
+        workTitle.classList.remove('active');
+        remainingTime = longBreakTime * 60;
+        breakCount++;
+        endWorkSession();
+        sendNotification("Time for a long break!", "You've completed several sessions. Enjoy a longer break.");
+    } else if (breakCount === 7) {
+        // Restart cycle after long break
+        longBreakTitle.classList.remove('active');
+        workTitle.classList.add('active');
+        remainingTime = workTime * 60;
+        breakCount = 0;
+        sendNotification("Back to work!", "Your long break is over. Let's start working again!");
+    } else {
+        // Start new work session
+        workTitle.classList.add('active');
+        shortBreakTitle.classList.remove('active');
+        remainingTime = workTime * 60;
+        breakCount++;
+        sendNotification("Work session started!", "Time to focus and be productive.");
+    }
+
+    start(); // Automatically start the next session
+}
+
+// Reset the timer
 function resetTimer() {
     clearInterval(interval);
-    workMinutes = workTime - 1;  // Use updated work time
-    seconds = 0;
+    remainingTime = workTime * 60;
+
     document.getElementById('minutes').innerHTML = workTime < 10 ? '0' + workTime : workTime;
     document.getElementById('seconds').innerHTML = "00";
-    
+
     workTitle.classList.add('active');
     shortBreakTitle.classList.remove('active');
     longBreakTitle.classList.remove('active');
+
     document.getElementById('start').style.display = "block";
     document.getElementById('reset').style.display = "none";
     document.getElementById('stop').style.display = "none";
@@ -492,65 +512,48 @@ function resetTimer() {
 
 // Stop the timer
 function stopTimer() {
-    clearInterval(interval); // Stop the countdown
-    document.getElementById('start').style.display = "none"; // Show start button again
-    document.getElementById('resume').style.display = "block"; // Keep reset visible
-    document.getElementById('reset').style.display = "block"; // Keep reset visible
-    document.getElementById('stop').style.display = "none"; // Keep reset visible
-  
+    clearInterval(interval);
+    remainingTime = Math.round((endTime - Date.now()) / 1000);
+
+    document.getElementById('start').style.display = "none";
+    document.getElementById('resume').style.display = "block";
+    document.getElementById('reset').style.display = "block";
+    document.getElementById('stop').style.display = "none";
 }
 
 // Resume the timer
 function resumeTimer() {
-    document.getElementById('start').style.display = "none"; // Hide start button
-    document.getElementById('resume').style.display = "none"; // Hide resume button
-    document.getElementById('reset').style.display = "block"; // Keep reset visible
-    document.getElementById('stop').style.display = "block"; // Show stop button
+    startTime = Date.now();
+    endTime = startTime + remainingTime * 1000;
 
-    // Start the timer with the remaining time
-    interval = setInterval(() => {
-        document.getElementById('minutes').innerHTML = workMinutes < 10 ? '0' + workMinutes : workMinutes;
-        document.getElementById('seconds').innerHTML = seconds < 10 ? '0' + seconds : seconds;
+    interval = setInterval(updateTimer, 1000);
 
-        seconds--;
-
-        if (seconds < 0) {
-            seconds = 59;
-            workMinutes--;
-
-            // Switch to break or long break after a work session
-            if (workMinutes < 0) {
-                if (breakCount === 0 || breakCount === 2 || breakCount === 4) {
-                    // Short break
-                    shortBreakTitle.classList.add('active');
-                    workTitle.classList.remove('active');
-                    workMinutes = shortBreakTime - 1;  // Reset for short break
-                    breakCount++;
-                } else if (breakCount === 6) {
-                    // Long break after 4 work sessions
-                    longBreakTitle.classList.add('active');
-                    shortBreakTitle.classList.remove('active');
-                    workMinutes = longBreakTime - 1;  // Reset for long break
-                    breakCount++;
-                } else if (breakCount === 7) {
-                    // Restart cycle after long break
-                    longBreakTitle.classList.remove('active');
-                    workTitle.classList.add('active');
-                    workMinutes = workTime - 1;  // Reset for next work session
-                    breakCount = 0;
-                } else {
-                    // Start new work session
-                    workTitle.classList.add('active');
-                    shortBreakTitle.classList.remove('active');
-                    workMinutes = workTime - 1;  // Reset for next work session
-                    breakCount++;
-                    pomodoroSessionsCount++;
-                }
-            }
-        }
-    }, 1000); // Update every second
+    document.getElementById('start').style.display = "none";
+    document.getElementById('resume').style.display = "none";
+    document.getElementById('reset').style.display = "block";
+    document.getElementById('stop').style.display = "block";
 }
 
+// Increment Pomodoro count
+function endWorkSession() {
+    pomodoroSessionsCount++;
+    updatePomodoroCountDisplay();
+    savePomodoroCount();
+}
+
+// Load count on page load
+window.onload = () => {
+    loadPomodoroCount();
+
+    document.getElementById('minutes').innerHTML = workTime < 10 ? '0' + workTime : workTime;
+    document.getElementById('seconds').innerHTML = "00";
+    workTitle.classList.add('active');
+
+    document.getElementById('start').style.display = "block";
+    document.getElementById('resume').style.display = "none";
+    document.getElementById('reset').style.display = "none";
+    document.getElementById('stop').style.display = "none";
+};
 
 
 //-------------------------------------------------------------------------------------
@@ -561,19 +564,35 @@ function resumeTimer() {
 const inputBox = document.getElementById("input-box");
 const listContainer = document.getElementById("list-container");
 
-function addTask(){
-    if(inputBox.value !== ''){
-        let li = document.createElement("li");
-        li.innerHTML = inputBox.value;
-        listContainer.appendChild(li);
-        let span = document.createElement("span");
-        span.innerHTML = "\u00d7";
-        li.appendChild(span);
-    }
 
-    inputBox.value = "";
+function addTask() {
+    var li = document.createElement("li");
+    var inputValue = document.getElementById("input-box").value;
+    var t = document.createTextNode(inputValue);
+    li.appendChild(t);
+    if (inputValue === '') {
+      alert("You must write something!");
+    } else {
+      document.getElementById("list-container").appendChild(li);
+    }
+    document.getElementById("input-box").value = "";
+  
+    var span = document.createElement("SPAN");
+    var txt = document.createTextNode("\u00D7");
+    span.className = "close";
+    span.appendChild(txt);
+    li.appendChild(span);
+  
+    for (i = 0; i < close.length; i++) {
+      close[i].onclick = function() {
+        var div = this.parentElement;
+        div.style.display = "none";
+      }
+    }
     saveData();
+
 }
+
 
 // Add task on Enter key press
 inputBox.addEventListener("keydown", function (e) {
@@ -581,6 +600,7 @@ inputBox.addEventListener("keydown", function (e) {
         addTask();
     }
 });
+
 
 
 listContainer.addEventListener("click", function(e){
@@ -605,6 +625,13 @@ function saveData(){
 
 function showTask(){
     listContainer.innerHTML = localStorage.getItem("data");
+}
+
+function clearAllTodo() {
+    // Clear localStorage for notesData
+    localStorage.removeItem("data");
+    // Clear the notes container in the UI
+    listContainer.innerHTML = ""; // This will remove all displayed notes
 }
 
 showTask();

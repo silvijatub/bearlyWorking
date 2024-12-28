@@ -14,13 +14,14 @@
         <div  id="overlay1" class="overlay"></div>
     </div>
     
-    <div id="quote" class="quote">Motivational quote will appear here.</div>
+    <div id="quote" class="quote">Your motivational quote will appear here.</div>
 
     <div class="allContent">
  
         <audio id="notification-sound" src="sounds/Notification/not1.mp3" preload="auto"></audio>
 
         <div id="top-bar">
+
             <div class="top-bar-title">
                 <img src="img/logo2.png" alt="Logo" class="logo" />
                 <div style="color:#ee7878">BearlyWorking</div>
@@ -41,10 +42,10 @@
                                 <p id="seconds"></p>
                             </div>               
                         <div class="controls">
-                            <button id="start" onclick="start()" aria-label="Start timer"><i class="fa-solid fa-play"></i></button>
-                            <button id="stop" onclick="stopTimer()"  aria-label="Stop timer"><i class="fa-solid fa-pause"></i></button>  
-                            <button id="resume" onclick="resumeTimer()"  aria-label="Resume timer"><i class="fa-solid fa-eject fa-rotate-90"></i></button> 
-                            <button id="reset" onclick="resetTimer()" aria-label="Restart timer"><i class="fa-solid fa-arrow-rotate-right"></i></button> 
+                            <button id="start" onclick="start()"><i class="fa-solid fa-play"></i></button>
+                            <button id="stop" onclick="stopTimer()"><i class="fa-solid fa-pause"></i></button>  
+                            <button id="resume" onclick="resumeTimer()"><i class="fa-solid fa-eject fa-rotate-90"></i></button> 
+                            <button id="reset" onclick="resetTimer()"><i class="fa-solid fa-arrow-rotate-right"></i></button> 
                                   
                         </div>    
                     </div>
@@ -61,19 +62,32 @@
         
         <div class="content">
     
-            <div id="popup-to-do">
+            <!-- <div id="popup-to-do">
                 <h2 class="todoTitle">TO-DO LIST</h2>
                 <div class="row">
                     <input type="text" id="input-box" placeholder="Add your task">
-                    <button class="btn" onclick="addTask()"  aria-label="Add task">Add</button>
+                    <button class="btn" onclick="addTask()">Add</button>
                 </div>
                 <ul id="list-container"></ul>
-            </div>
+            </div> -->
     
+            <div id="popup-to-do">
+                <h2 class="todoTitle">TO-DO LIST</h2>
+
+            <div id="myDIV" class="row">
+                <input type="text" id="input-box" placeholder="Add your task">
+                <button class="btn" onclick="addTask()">Add</button>
+              </div>
+              
+              <ul id="list-container">
+              </ul>
+
+            </div>
+
             <div id="popup-notes">
                 <div  class="notesDivTitle">
                     <h2 style="margin-right: 20px;">NOTES</h2>   
-                    <button class="btn2" id="createBtn" onclick="createNote()"  aria-label="Create note">+</button>
+                    <button class="btn2" id="createBtn" onclick="createNote()">+</button>
                 </div>
                 <div class="notesDiv" id="notesDiv">
                     <div class="notes-container"> </div>       
@@ -90,9 +104,9 @@
 
            <!-- Buttons -->
         <div class="settings">
-            <button id="information-btn"  aria-label="Information"><i class="fa-solid fa-circle-info"></i></button>
-            <button id="settings-btn"  aria-label="Settings"><i class="fa-solid fa-cog"></i></button>
-            <button id="play-music-btn" class="crossed-off"  aria-label="Music">
+            <button id="information-btn"><i class="fa-solid fa-circle-info"></i></button>
+            <button id="settings-btn"><i class="fa-solid fa-cog"></i></button>
+            <button id="play-music-btn" class="crossed-off">
                 <i class="fas fa-music"></i>
             </button>
             <audio id="audio" style="display:none;" src="./sounds/rain.mp3" controls autoplay loop></audio>              
@@ -162,7 +176,7 @@
                 <img src="img/background_light_1.png" id="bg1" class="background-option" alt="Background 1" >
                 <img src="img/background_dark_1.png" id="bg2" class="background-option" alt="Background 2" >
                 <img src="img/background_dark_antras.png" id="bg4" class="background-option" alt="Background 4" >
-                <img src="img/outside_dark.png" id="bg5" class="background-option" alt="Background 5" >
+                <img src="img/background4.png" id="bg5" class="background-option" alt="Background 5" >
             </div>
 
        
