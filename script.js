@@ -1,6 +1,5 @@
 //----------------------------------------------------------------------------------------------
 
-
 //BACKGROUND SETTINGS
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -112,6 +111,8 @@ const plusBtn = document.getElementById('plus-btn');
 const minusBtn = document.getElementById('minus-btn');
 const timerSection = document.querySelector('.container');
 
+const title = document.querySelector('.top-bar-title');
+
 // TO DO BUTTON
 document.getElementById('to-do-btn').addEventListener('click', function() {
 
@@ -160,16 +161,20 @@ document.getElementById('plus-btn').addEventListener('click', function () {
     topBar.classList.add('expanded');
     timerSection.classList.add('expanded');
     overlayy.classList.add('expanded');
+   
+    title.classList.add('expanded');
+
     popupToDo.style.display = 'block';
     popupNotes.style.display = 'block';
     todoBtn.style.display = 'none';
     notesBtn.style.display = 'none';
     plusBtn.style.display = 'none';
     minusBtn.style.display = 'block';
- 
-
+    popupNotes.style.backgroundColor = 'rgba(31, 48, 38, 0)';
+    popupToDo.style.backgroundColor = 'rgba(31, 48, 38, 0)';
      timerSection.style.transform = 'scale(1.5)';
      timerSection.style.transition = 'transform 0.5s';
+
 
     quoteElement.classList.add('top');
 
@@ -179,6 +184,7 @@ document.getElementById('plus-btn').addEventListener('click', function () {
 // Handle Minus Button Click
 document.getElementById('minus-btn').addEventListener('click', function () {
    
+    title.classList.remove('expanded');
 
     popupToDo.style.transform = 'scale(1)';
     popupNotes.style.transform = 'scale(1)';
@@ -195,6 +201,8 @@ document.getElementById('minus-btn').addEventListener('click', function () {
     minusBtn.style.display = 'none';
     timerSection.style.transform = 'scale(1)';
     timerSection.style.transition = 'transform 0.5s';
+    popupNotes.style.backgroundColor = 'rgba(31, 48, 38, 0.685)';
+    popupToDo.style.backgroundColor = 'rgba(31, 48, 38, 0.685)';
     quoteElement.classList.remove('top');
 
 
@@ -212,6 +220,7 @@ window.addEventListener('resize', function () {
         popupToDo.style.transition = 'transform 0.5s';
         popupNotes.style.transform = 'scale(0.9)';
         popupNotes.style.transition = 'transform 0.5s';
+        title.classList.add('expanded');
     }
     if (width > 1350 && isExpanded == true){
         popupToDo.style.transform = 'scale(1)';
@@ -224,16 +233,19 @@ window.addEventListener('resize', function () {
         topBar.classList.remove('expanded');
         timerSection.classList.remove('expanded');
         overlayy.classList.remove('expanded');
-        
+        title.classList.remove('expanded');
         todoBtn.style.display = 'block';
         notesBtn.style.display = 'block';
         plusBtn.style.display = 'none';
         minusBtn.style.display = 'none';
         timerSection.style.transform = 'scale(1.5)';
         quoteElement.classList.remove('top');
+  
         if (isExpanded) {
             popupToDo.style.display = 'none';
             popupNotes.style.display = 'none';
+            popupNotes.style.backgroundColor = 'rgba(31, 48, 38, 0.685)';
+            popupToDo.style.backgroundColor = 'rgba(31, 48, 38, 0.685)';
         }
 
         isExpanded = false; 
@@ -247,6 +259,7 @@ window.addEventListener('resize', function () {
             plusBtn.style.display = 'block';
             minusBtn.style.display = 'none';
             timerSection.classList.remove('expanded');
+            title.classList.remove('expanded');
             timerSection.style.transform = 'scale(1)';
         }
     }
@@ -256,13 +269,18 @@ window.addEventListener('resize', function () {
 
 // UPDATE AUDIO SOURCE 
 
+
+const playMusicBtn = document.getElementById('play-music-btn');
+const audio = document.getElementById('audio');
+const volume = document.getElementById('volume-control');
+
 function updateAudioSource() {
     // Get the audio element and the dropdown selection
-    const backgroundSound = document.getElementById('audio');
     const selectedSound = document.getElementById('audio-selection').value;
 
-    backgroundSound.src = selectedSound;
-    backgroundSound.load();
+    audio.src = selectedSound;
+    audio.load();
+    playMusicBtn.classList.remove('crossed-off');
 
     console.log(`Notification sound changed to: ${selectedSound}`);
 }
@@ -279,12 +297,6 @@ volumeControl.addEventListener('input', (event) => {
 });
 
 //----------------------------------------------------------------------------------------------
-
-// BACKGROUND MUSIC
-
-const playMusicBtn = document.getElementById('play-music-btn');
-const audio = document.getElementById('audio');
-const volume = document.getElementById('volume-control');
 
 playMusicBtn.addEventListener('click', () => {
     if (audio.paused) {    
@@ -556,6 +568,7 @@ window.onload = () => {
 };
 
 
+
 //-------------------------------------------------------------------------------------
 
 //TO-DO LIST 
@@ -564,35 +577,19 @@ window.onload = () => {
 const inputBox = document.getElementById("input-box");
 const listContainer = document.getElementById("list-container");
 
+function addTask(){
+    if(inputBox.value !== ''){
+        let li = document.createElement("li");
+        li.innerHTML = inputBox.value;
+        listContainer.appendChild(li);
+        let span = document.createElement("span");
+        span.innerHTML = "\u00d7";
+        li.appendChild(span);
+    }
 
-function addTask() {
-    var li = document.createElement("li");
-    var inputValue = document.getElementById("input-box").value;
-    var t = document.createTextNode(inputValue);
-    li.appendChild(t);
-    if (inputValue === '') {
-      alert("You must write something!");
-    } else {
-      document.getElementById("list-container").appendChild(li);
-    }
-    document.getElementById("input-box").value = "";
-  
-    var span = document.createElement("SPAN");
-    var txt = document.createTextNode("\u00D7");
-    span.className = "close";
-    span.appendChild(txt);
-    li.appendChild(span);
-  
-    for (i = 0; i < close.length; i++) {
-      close[i].onclick = function() {
-        var div = this.parentElement;
-        div.style.display = "none";
-      }
-    }
+    inputBox.value = "";
     saveData();
-
 }
-
 
 // Add task on Enter key press
 inputBox.addEventListener("keydown", function (e) {
@@ -600,7 +597,6 @@ inputBox.addEventListener("keydown", function (e) {
         addTask();
     }
 });
-
 
 
 listContainer.addEventListener("click", function(e){
@@ -625,13 +621,6 @@ function saveData(){
 
 function showTask(){
     listContainer.innerHTML = localStorage.getItem("data");
-}
-
-function clearAllTodo() {
-    // Clear localStorage for notesData
-    localStorage.removeItem("data");
-    // Clear the notes container in the UI
-    listContainer.innerHTML = ""; // This will remove all displayed notes
 }
 
 showTask();

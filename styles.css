@@ -6,6 +6,8 @@
     z-index: 0; /* Fonas bus pačioje apačioje */
     background-size: cover;
     background-position: center;
+    overflow-y: auto;
+    overflow-x: auto;
 }
 
 /* Permatomas overlay ant fono */
@@ -33,6 +35,8 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     height: 100vh;
+    /* height: 100%; */
+    width: 100%;
     overflow: hidden;
     background-size: cover;
     background-position: center;
@@ -41,7 +45,7 @@ body {
 #top-bar {
     top: 0;
     width: 100%;
-    height: 120px;
+    min-height: 40%;
     background-color: rgba(31, 48, 38, 0.685); /* Pusiau permatoma juosta */
     display: flex;  
     transition: height 0.5s ease, 
@@ -72,20 +76,24 @@ body {
 }
 
 .top-bar-title{
-    width: 20%;
+    max-width: 20%;
     display: flex;
     align-items: center;
-    padding-left: 40px;
+    padding-left: 3%;
     font-weight: 600;
     color: #ffffff;
     font-size: x-large;
+}
+
+.top-bar-title.expanded{
+    padding-top: 30px;
 }
 
 .top-bar-plus{
     width: 20%;
     display: flex;
     justify-content: end;
-    padding-right: 40px;
+    padding-right: 3%;
     align-items: center;
     font-weight: 600;
     color: #ffffff;
@@ -207,6 +215,9 @@ body {
 .controls #reset{
     display: none;
 }
+
+
+
 
 /* ---------------------------------------------------------------- */ 
 
@@ -347,7 +358,7 @@ ul li span{
     margin-bottom: 10px;
     min-height: 30px;
     border-radius: 50px;
- color: rgba(58, 82, 67, 100);
+    color:#555;
         /* make the list items unselectable */
         -webkit-user-select: none;
         -moz-user-select: none;
@@ -377,6 +388,7 @@ ul li span{
   
 
 
+
 /* --------------------------------------------------------------------------- */
 
 /* ----------- NOTES ----------- */
@@ -385,6 +397,7 @@ ul li span{
     display: none; 
     background-color: rgba(31, 48, 38, 0.685);
     width: 400px;
+    /* width: 30%; */
     min-height: 0px;
     padding: 20px;
     padding-top: 0px;
@@ -392,7 +405,7 @@ ul li span{
     margin-right: 50px;
     border-radius: 10px;
     cursor: pointer;
-    max-height: 625px;
+    max-height: 60%;
 
     scale: 0.9;
     transition: all 0.5s;
@@ -414,8 +427,9 @@ ul li span{
     text-align: left;
 }
 .notesDiv {
-    width: 400px;
-    max-height: 530px;
+    width: 100%;
+    /* max-height: 530px; */
+    height: 85%;
     overflow-y: auto; /* Enable vertical scrolling */
     color: #ffffff;
     margin-top: -33px;
@@ -756,7 +770,7 @@ hr.solid {
 }
 
 .logo {
-    width: 60px; /* Adjust the width as needed */
+    max-width: 60px; 
     height: auto; /* Maintains aspect ratio */
     margin-right: 10px; /* Space between logo and text */
 }
@@ -813,20 +827,38 @@ hr.solid {
         width 0.5s ease;
     }
 
-    .top-bar-title{
-        width: 100%;
+    /* .top-bar-title{
+        width: 20%;
         display: flex;
         align-items: center;
         font-weight: 600;
         color: #ffffff;
         font-size: x-large;   
+    } */
+
+    .top-bar-title{
+       transform: scale(0.8);
+       padding-top: 0px;
     }
 
-    #top-bar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+    
+#top-bar {
+    top: 0;
+    width: 100%;
+    min-height: 80px;
+    background-color: rgba(31, 48, 38, 0.685); /* Pusiau permatoma juosta */
+    display: flex;  
+    transition: height 0.5s ease, 
+    background-color 0.5s ease; /* Smooth transitions */
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#to-do-btn, #notes-btn{
+    transform: scale(0.8);
+}
 
     .top-bar-content {
         width: 100%;
@@ -840,10 +872,10 @@ hr.solid {
 
     .container {
         position: absolute;
-        top: 35%;
+        top: 30%;
         right: 25%; 
         left: 25%;
-        transform: translate(-50%, -50%);
+        /* transform: translate(-50%, -50%); */
         transform: scale(1.5);
         transition: transform 0.5s;
     }
@@ -853,7 +885,7 @@ hr.solid {
     }
 
     #popup-to-do, #popup-notes{    
-        width: 400px;
+        /* width: 450px; */
         margin-left: auto;
         margin-right: auto;
         transform: scale(1);
@@ -861,11 +893,11 @@ hr.solid {
         transition: margin-left 1s,
         margin-right 1s;
     }
+
    
-    
 }
  
-@media (max-width: 800px) {
+@media (max-width: 768px) {
         
     .quote {
         left: 50%;
@@ -877,6 +909,50 @@ hr.solid {
         color: rgb(255, 219, 240); /* Change to your preferred color */
         background-color: rgba(252, 251, 251, 0);
     }
+
+    #popup-to-do, #popup-notes{  
+        margin-bottom: 10%; 
+        transform: scale(0.9);
+        /* margin-top: -2%; */
+        transition: margin-left 1s,
+        margin-right 1s;
+    }
+
+    .top-bar-title{
+        transform: scale(0.6);
+     }
+}
+
+@media (max-width: 400px) {
+
+
+    #popup-to-do, #popup-notes{  
+        margin-bottom: 10%; 
+        transform: scale(0.8);
+        /* margin-top: -2%; */
+    }
+
+    .top-bar-title{
+        transform: scale(0.6);
+     }
+}
+
+@media screen and (max-height: 720px) {
+    #popup-to-do, #popup-notes{  
+        margin-bottom: 500px; 
+        transform: scale(0.8);
+        /* margin-top: -2%; */
+        transition: margin-left 1s,
+        margin-right 1s;
+    }
+    .notesDiv {
+        max-height: 400px;    
+    }
+
+    #list-container {
+        max-height: 315px; 
+    }
+ 
 }
 
 #info-popup li{
