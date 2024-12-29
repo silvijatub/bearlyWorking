@@ -346,7 +346,7 @@ function sendNotification(title, message) {
         console.log("Sending notification:", title, message);
         new Notification(title, {
             body: message,
-            icon: "img/logo2.png" 
+            icon: "img/logo_notif.png" 
         });
 
          // Play sound only if explicitly requested
