@@ -831,6 +831,10 @@ hr.solid {
     .top-bar-title{
         transform: scale(0.6);
      }
+
+     #popup-to-do, #popup-notes {
+        max-width: 400px;
+    }
 }
 
 @media screen and (max-height: 720px) {
