@@ -279,15 +279,15 @@ function updateAudioSource() {
     console.log(`Notification sound changed to: ${selectedSound}`);
 }
 
-const audioElement = document.getElementById('audio');
-const volumeControl = document.getElementById('volume-control');
+// const audioElement = document.getElementById('audio');
+// const volumeControl = document.getElementById('volume-control');
 
 // Set the initial volume (matches the slider's initial value)
-audioElement.volume = volumeControl.value;
+audio.volume = volume.value;
 
 // Update the volume when the slider value changes
-volumeControl.addEventListener('input', (event) => {
-    audioElement.volume = event.target.value;
+volume.addEventListener('input', (event) => {
+    audio.volume = event.target.value;
 });
 
 //----------------------------------------------------------------------------------------------
@@ -295,7 +295,7 @@ volumeControl.addEventListener('input', (event) => {
 playMusicBtn.addEventListener('click', () => {
     if (audio.paused) {    
         audio.play().then(() => {
-            playMusicBtn.classList.remove('crossed-off'); // Remove cross-off style       
+            playMusicBtn.classList.remove('crossed-off');   
             console.log("Audio started playing.");
         }).catch(error => {
             console.error("Playback error:", error);
@@ -303,8 +303,7 @@ playMusicBtn.addEventListener('click', () => {
         });
     } else {
         audio.pause();
-        playMusicBtn.classList.add('crossed-off'); // Add cross-off style
-       // volumeControl.value = 0;
+        playMusicBtn.classList.add('crossed-off'); 
         console.log("Audio paused.");
     }
 });
@@ -313,6 +312,7 @@ playMusicBtn.addEventListener('click', () => {
 // POMODORO TIMER
 
 // Request notification permission
+// Request Permission on Page Load: Automatically handled by the DOMContentLoaded listener
 document.addEventListener("DOMContentLoaded", function () {
     if (Notification.permission === "default") {
         Notification.requestPermission().then(permission => {
@@ -359,7 +359,6 @@ document.getElementById('save-settings-btn').addEventListener('click', function(
     shortBreakTime = parseInt(document.getElementById('shortBreakChosenTime').value);
     longBreakTime = parseInt(document.getElementById('longBreakChosenTime').value);
     resetTimer();
-    //updateAudioSource();
 });
 
 
@@ -387,31 +386,35 @@ function playNotificationSound() {
 
 
 // Pomodoro Timer
-let workTitle = document.getElementById('work');
+
+// pomodoro session stage titles
+let workTitle = document.getElementById('work'); 
 let shortBreakTitle = document.getElementById('shortBreak');
 let longBreakTitle = document.getElementById('longBreak');
 
-let workTime = 25; // Work duration in minutes
-let shortBreakTime = 5; // Short break duration in minutes
-let longBreakTime = 15; // Long break duration in minutes
+// default work and breaks time in minutes
+let workTime = 25; 
+let shortBreakTime = 5; 
+let longBreakTime = 15; 
 
-let interval;
-let startTime;
-let endTime;
-let remainingTime = workTime * 60; // Remaining time in seconds
-let pomodoroSessionsCount = 0;
-let breakCount = 0;
+let interval; //stores id of current pomodoro session time
+let startTime; //pradžios laikas
+let endTime; //pabaigos laikas
+let remainingTime = workTime * 60; // Remaining time of a current session in seconds
+let pomodoroSessionsCount = 0; //counts sessions of that day
+let breakCount = 0; // tracks count of breaks (determines if next is short or long break)
+
 
 // Load saved count and last date from localStorage
 function loadPomodoroCount() {
-    const savedCount = localStorage.getItem('pomodoroCount');
+    const savedCount = localStorage.getItem('pomodoroCount'); 
     const savedDate = localStorage.getItem('lastUpdatedDate');
     const currentDate = new Date().toISOString().split('T')[0];
 
+    // if the day has changed, pomodoro sessions is set to 0
     if (savedDate === currentDate) {
         pomodoroSessionsCount = parseInt(savedCount) || 0;
     } else {
-        // Reset count if the day has changed
         pomodoroSessionsCount = 0;
         localStorage.setItem('pomodoroCount', 0);
         localStorage.setItem('lastUpdatedDate', currentDate);
@@ -423,7 +426,7 @@ function loadPomodoroCount() {
 // Save the count to localStorage
 function savePomodoroCount() {
     const currentDate = new Date().toISOString().split('T')[0];
-    localStorage.setItem('pomodoroCount', pomodoroSessionsCount);
+    localStorage.setItem('pomodoroCount', pomodoroSessionsCount); 
     localStorage.setItem('lastUpdatedDate', currentDate);
 }
 
@@ -433,11 +436,13 @@ function updatePomodoroCountDisplay() {
 }
 
 // Start the timer
+// Starts the Pomodoro timer by calculating the session's endTime and
+// setting up an interval to update the timer every second.
 function start() {
     startTime = Date.now();
-    endTime = startTime + remainingTime * 1000;
+    endTime = startTime + remainingTime * 1000; 
 
-    interval = setInterval(updateTimer, 1000);//kas sekundę atnaujinamas timeris
+    interval = setInterval(updateTimer, 1000);// calls the updateTimer function every 1000 milliseconds
 
     document.getElementById('start').style.display = "none";
     document.getElementById('resume').style.display = "none";
@@ -446,9 +451,11 @@ function start() {
 }
 
 // Update the timer
+// Continuously updates the timer display and handles the session transition when time runs out
 function updateTimer() {
     const now = Date.now();
-    remainingTime = Math.round((endTime - now) / 1000);
+    remainingTime = Math.round((endTime - now) / 1000); // The current time is compared to endTime. 
+                                                        // Subtracting the two gives the time left in milliseconds
 
     if (remainingTime <= 0) {
         clearInterval(interval);
@@ -460,12 +467,21 @@ function updateTimer() {
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
 
+    // If either value is less than 10, it's padded with a leading zero for consistency
     document.getElementById('minutes').innerHTML = minutes < 10 ? '0' + minutes : minutes;
     document.getElementById('seconds').innerHTML = seconds < 10 ? '0' + seconds : seconds;
 }
 
 // Handle session end
+// Manages transitions between work sessions, short breaks, and long breaks
 function handleSessionEnd() {
+
+    // Determine Session Type: breakCount keeps track of the current session type:
+    // 0, 2, 4: Transition to short breaks.
+    // 6: Transition to a long break.
+    // 7: End the long break and reset to a new work session.
+    // All other values: Transition to a work session.
+
     if (breakCount === 0 || breakCount === 2 || breakCount === 4) {
         // Short break
         shortBreakTitle.classList.add('active');
@@ -482,7 +498,7 @@ function handleSessionEnd() {
         workTitle.classList.remove('active');
         remainingTime = longBreakTime * 60;
         breakCount++;
-        sendNotification("Time for a long break!", "You've completed several sessions. Enjoy a longer break.");
+        sendNotification("Time for a long break!", "You've completed four work sessions. Enjoy a longer break.");
         endWorkSession();
        
     } else if (breakCount === 7) {
@@ -504,7 +520,7 @@ function handleSessionEnd() {
     start(); // Automatically start the next session
 }
 
-// Reset the timer
+// Reset the timer (after saving timer settings)
 function resetTimer() {
     clearInterval(interval);
     remainingTime = workTime * 60;
