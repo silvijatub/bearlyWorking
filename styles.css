@@ -111,7 +111,7 @@ body {
     position: fixed;
     top: 41px; 
     right: 40px; 
-    z-index: 10; 
+    /* z-index: 10;  */
 }
 
 #to-do-btn, #notes-btn{
@@ -227,6 +227,7 @@ body {
     max-height: 440px; 
     overflow-y: auto; /* Enable vertical scrolling */
     cursor: grab;
+    scrollbar-width: none; 
 }
 
 #list-container:active {
@@ -234,36 +235,23 @@ body {
 }
 
 #list-container::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+    display: none;
 }
 
-/* For Firefox */
-#list-container {
-    scrollbar-width: none; /* Hide scrollbar in Firefox */
-}
-
-#list-container li {
-    position: relative;
-    padding-right: 20px; /* Add padding for the delete button space */
-    list-style: none;
-}
-
-
+/* Delete to-do task buttno */
 #list-container li span {
     position: absolute;
-    right: 5px; /* Adjust the right distance as needed */
+    right: 5px; 
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
     font-weight: bold;
-    color: rgb(127, 106, 141); /* Optional: change the color if desired */
+    color: rgb(127, 106, 141); 
 }
 
 #list-container li span:hover{
-
-    color: rgb(97, 79, 109); /* Optional: change the color if desired */
+    color: rgb(97, 79, 109); 
 }
-
 
 .todoTitle{
     color: #eccbdf;
@@ -275,6 +263,7 @@ body {
     width: 400px;
     margin-left: 50px;
     padding: 20px;
+    padding-top: 10px;
     border-radius: 10px;
     background-color:  rgba(31, 48, 38, 0.685);
     max-height: 600px;
@@ -282,10 +271,7 @@ body {
     transition: all 0.5s;
 }
 
-#popup-to-do.open, #popup-notes.open{
-    background-color: rgba(58, 82, 67, 0);
-}
-
+/* Add task input field and button */
 .row{
     display: flex;
     align-items: center;
@@ -294,25 +280,26 @@ body {
     border-radius: 50px;
     padding-left: 20px;
     margin-bottom: 25px;
-
 }
 
+/* input task */
 input{
     flex: 1;
     border: none;
     outline: none;
     background: transparent;
     padding: 10px;
-    font-weight: 14px;
+    font-size: 16px;
 }
 
+/* Add task button */
 .btn{
     border: none;
-    outline: none;
     padding: 16px 50px;
     background: #e5bcec;
     color: #ffffff;
     font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
     border-radius: 40px;
 }
@@ -321,8 +308,7 @@ input{
     background: #cd93d7;
 }
 
-
-
+/* delete task button */
 ul li span{
     position: absolute;
     right: 0;
@@ -349,8 +335,7 @@ ul li span{
     justify-content: space-between;
     list-style: none;
     font-size: 17px;
-    padding: 12px 8px 12px 50px;
-    user-select: none;
+    padding: 12px 8px 12px 40px;
     cursor: pointer;
     position: relative;
    
@@ -359,14 +344,8 @@ ul li span{
     min-height: 30px;
     border-radius: 50px;
     color:#555;
-        /* make the list items unselectable */
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
   }
   
-
   /* When clicked on, add a background color and strike out text */
   #popup-to-do ul li.checked {
     text-decoration: line-through;
@@ -387,7 +366,13 @@ ul li span{
   }
   
 
-
+/* todo and notes div when expanded */
+.content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 1000px;
+}
 
 /* --------------------------------------------------------------------------- */
 
@@ -395,7 +380,6 @@ ul li span{
 
   #popup-notes {
     display: none; 
-    background-color: rgba(31, 48, 38, 0.685);
     width: 400px;
     /* width: 30%; */
     min-height: 0px;
@@ -404,39 +388,40 @@ ul li span{
     margin-left: auto;
     margin-right: 50px;
     border-radius: 10px;
+    background-color: rgba(31, 48, 38, 0.685);
     cursor: pointer;
     max-height: 60%;
-
     scale: 0.9;
     transition: all 0.5s;
 }
 
-
+/* note input */
 .input-box {
     position: relative;
     max-width: 400px;
     min-height: 50px;
     padding: 10px;
     padding-bottom: 45px;
-    padding-top: 5px;
-    background: #eccbdf;
+    padding-top: 10px;
     color: #555;
     outline: none;
     border-radius: 10px;
     margin-bottom: 20px;
     text-align: left;
+    font-size: 16px;
 }
+
+/* all notes */
 .notesDiv {
-    width: 100%;
-    /* max-height: 530px; */
+    /* width: 100%; */
     height: 85%;
-    overflow-y: auto; /* Enable vertical scrolling */
-    color: #ffffff;
+    overflow-y: auto; 
     margin-top: -33px;
 }
+
+/* add note button */
 .btn2 {
     border: none;
-    outline: none;
     background: #e5bcec;
     color: #ffffff;
     font-size: 25px;
@@ -446,10 +431,12 @@ ul li span{
     width: 30px;
     height: 30px;
 }
+
 .btn2:hover {
     background: #cd93d7;
 }
 
+/* delete note image */
 .input-box img{
     width: 20px;
     position: absolute;
@@ -457,6 +444,7 @@ ul li span{
     right: 15px;
 }
 
+/* different colours of notes */
 .input-box.note-odd {
     background-color: #d8b9d7;
 }
@@ -465,20 +453,18 @@ ul li span{
     background-color: #f4d8ec; 
 }
 
-
+/* title ant add note button */
 .notesDivTitle{
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 400px;
     min-height: 40px;
     color: #eccbdf;
-    padding: 20px;
-    margin-left: -15px;
-    margin-right: 50px;
+    padding-left: 0px;
+    padding-top: 15px;
+    padding-bottom: 20px;
     border-radius: 10px;
     cursor: grab;
-    max-height: 500px;
     overflow: auto;
 }
 
@@ -495,22 +481,20 @@ ul li span{
     scrollbar-width: none; /* Hide scrollbar in Firefox */
 }
 
-#popup-to-do.open, #popup-notes.open{
-    background-color: rgba(58, 82, 67, 0);
-}
 
 /* --------------------------------------------------------------------------- */
 
 /* SETTINGS */
 
+/* pomodoro sessions count display */
 .pomodoroSessions {
     position: fixed;
     bottom: 80px;
     right: 20px;
     font-size: 13px;
-
 }
 
+/* settings, info and music buttons */
 .settings {
     position: fixed;
     bottom: 20px;
@@ -536,7 +520,7 @@ ul li span{
     background-color: #a7daa5; 
 }
 
-
+/* info and settigns popup */
 .popup {
     width: 60%;
     max-height: 80%;
@@ -546,7 +530,6 @@ ul li span{
     transform: translate(-50%, -50%); /* Center the popup */
     background-color: #f4d8ec; 
     border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     padding: 30px;
     padding-top: 0%;
     border-radius: 20px;
@@ -557,6 +540,7 @@ ul li span{
     overflow-y: auto;
 }
 
+/* Settings and info category title */
 .settingsCategory{
     background-color:#eacce2;
     padding: 10px;
@@ -581,9 +565,10 @@ ul li span{
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.7); 
 }
 
+/* selections container */
 .selectioni{
     display: flex;
     flex-direction: row;
@@ -596,16 +581,7 @@ ul li span{
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
-    color: var(--color-secondary);
     font-weight: 700;
-}
-
-.selectioni i{
-    margin-right: 5px;
-    margin-top: 20px;
-    margin-left: 10px;
-    margin-bottom: 20px;
-    color: rgb(255, 255, 255);
 }
 
 .selectioni select{
@@ -620,34 +596,19 @@ ul li span{
     font-weight: 700;
 }
 
-.lastSelect{
-    margin-right: 1000px;
-}
-
-.close-btn {
-    background: none; /* No background */
-    border: none; /* No border */
-    font-size: 20px; /* Increase font size */
-    cursor: pointer; /* Change cursor on hover */
-    position: absolute; /* Position it at the top right */
-    top: 10px; /* Space from the top */
-    right: 10px; /* Space from the right */
-}
-
 .close-btn-info {
-    cursor: pointer; /* Change cursor to pointer on hover */
+    cursor: pointer; 
     background-color:#f4d8ec;
     color: #494949; 
-    font-size: 25px; /* Adjust size for better visibility */
-    border: none; /* Optional: remove default button border */
+    font-size: 25px; 
+    border: none;
 }
 
+/* title and close button */
 .close-button-info{
     width: 100%;
-    position: sticky; /* Or 'fixed' if you want it completely fixed */
-    top: 0px; /* Distance from the top of the container or viewport */
-    right: 10px; /* Distance from the right side */
-   
+    position: sticky; 
+    top: 0px; 
     background-color:#f4d8ec;
     display: flex;
     justify-content:space-between;
@@ -655,78 +616,25 @@ ul li span{
     flex-direction: row;
 }
 
-
-
-
-.content{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 1000px;
-}
-
+/* save timer settings button */
 .save-settings-btn {
     outline: none;
     padding: 10px 30px;
     font-size: 12px;
     cursor: pointer;
-    border-radius: 20px; /* Adjusted to avoid split appearance */
+    border-radius: 20px;
     font-weight: 600;
     margin-right: 0;
     margin-left: auto;
-    background-color: transparent; /* Use fully transparent background */
-    border: 2px solid #b4c7e8; /* Combine border width and color in one */
+    background-color: transparent; 
+    border: 2px solid #b4c7e8; 
     color: #7ea2e0;
-    box-sizing: border-box; /* Ensure border is included in dimensions */
 }
 
 .save-settings-btn:hover{
     background-color: #b4c7e8;
     color: #7ea2e0;
 }
-
-/* QUOTES */
-
-.quote {
-    position: fixed;
-    bottom: 20px; /* Position it at the bottom */
-    left: 5%;
-    transform: translateX(-10%); /* Center it horizontally */
-    text-align: left;
-    transition: top 0.5s; /* Smooth transition for moving */
-    font-size: 18px;
-    font-weight: 600;
-    max-width: 500px;
-    padding: 20px;
-    border-radius: 30px;
-    color: rgb(255, 219, 240); /* Change to your preferred color */
-    background-color: rgba(252, 251, 251, 0);
-}
-
-.quote.top {
-    left: 50%;
-    transform: translateX(-50%);
-    top: 30px; /* Position it at the top */
-    bottom: auto; /* Remove bottom positioning */
-    text-align: center;
-    max-width: 350px;
-    color: rgb(255, 219, 240); /* Change to your preferred color */
-    background-color: rgba(252, 251, 251, 0);
-}
-
-.quote.top2 {
-    left: 50%;
-    transform: translateX(-50%);
-    top: 120px; /* Position it at the top */
-    bottom: auto; /* Remove bottom positioning */
-    text-align: center;
-    max-width: 350px;
-    color: rgb(255, 219, 240); /* Change to your preferred color */
-    background-color: rgba(252, 251, 251, 0);
-}
-
-
-
 
 
 /* Solid border */
@@ -737,45 +645,56 @@ hr.solid {
   
 
   .background-option {
-    width: 150px; /* Adjust as needed */
+    width: 150px;
     height: auto;
     cursor: pointer;
-    border: 3px solid transparent; /* Default border */
-    transition: border-color 0.3s ease; /* Smooth transition for border */
+    border: 3px solid transparent;
 }
 
 .background-option.selected {
-    border-color: rgb(84, 174, 84); /* Green border when selected */
+    border-color: rgb(101, 198, 56); 
 }
 
 
-.note-container {
-    display: flex; /* Aligns input box and delete button in a row */
-    align-items: center; /* Center items vertically */
-    margin-bottom: 10px; /* Space between notes */
+/* ---------------------------------------------------------------------------- */
+
+/* QUOTES */
+
+.quote {
+    position: fixed;
+    bottom: 20px;
+    left: 5%;
+    transform: translateX(-10%); 
+    text-align: left;
+    font-size: 18px;
+    font-weight: 600;
+    max-width: 500px;
+    padding: 20px;
+    color: rgb(255, 219, 240); /* Change to your preferred color */
 }
 
-.input-box1 {
-    flex-grow: 1; /* Allow the input box to grow and take available space */
-    min-height: 40px; /* Ensure there's a minimum height */
-    overflow-wrap: break-word; /* Handle long words */
-    padding: 5px; /* Add padding for better usability */
-    max-width: 360px;
-    background-color: #b68eb4;
+.quote.top {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 30px; 
+    bottom: auto; /* Remove bottom positioning */
+    text-align: center;
+    max-width: 350px;
 }
 
-.delete-btn {
-    width: 20px; /* Set a width for the delete button */
-    height: 20px; /* Set a height for the delete button */
-    margin-left: 10px; /* Space between text and button */
-    cursor: pointer; /* Change cursor to pointer */
-}
+
+/* ---------------------------------------------------------------------- */
 
 .logo {
     max-width: 60px; 
-    height: auto; /* Maintains aspect ratio */
-    margin-right: 10px; /* Space between logo and text */
+    height: auto;
+    margin-right: 10px; 
 }
+
+/* ---------------------------------------------------------------------- */
+
+/*  MUSIC BUTTON */
+
 
 #play-music-btn{
     background-color: #fcd6bf00; 
@@ -803,20 +722,14 @@ hr.solid {
     left: 0;
     width: 150%;
     height: 10%; /* Line thickness */
-    background-color: rgb(255, 255, 255); /* Line color */
-    transform: rotate(15deg); /* Slightly tilt the line */
+    background-color: rgb(255, 255, 255); 
+    transform: rotate(15deg); 
     margin-left: -3px;
 }
 
-/* Menu button styles */
-#menu-btn {
-    display: none; /* Hidden by default */
-    font-size: 24px;
-    cursor: pointer;
-}
+/* -------------------------------------------------------------------------- */
 
-
-
+/* FOR SMALLER SCREENS */
 
 /* Styles for smaller screens */
 @media (max-width: 1200px) {
@@ -829,29 +742,19 @@ hr.solid {
         width 0.5s ease;
     }
 
-    /* .top-bar-title{
-        width: 20%;
-        display: flex;
-        align-items: center;
-        font-weight: 600;
-        color: #ffffff;
-        font-size: x-large;   
-    } */
-
     .top-bar-title{
        transform: scale(0.8);
        padding-top: 0px;
+       transition: transform 0.3s ease;
+       transition: transform 0.3s ease-in;
     }
 
-    
 #top-bar {
     top: 0;
     width: 100%;
     min-height: 80px;
-    background-color: rgba(31, 48, 38, 0.685); /* Pusiau permatoma juosta */
-    display: flex;  
-    transition: height 0.5s ease, 
-    background-color 0.5s ease; /* Smooth transitions */
+    /* display: flex;   */
+    transition: height 0.5s ease;
 
     display: flex;
     justify-content: space-between;
@@ -877,7 +780,6 @@ hr.solid {
         top: 30%;
         right: 25%; 
         left: 25%;
-        /* transform: translate(-50%, -50%); */
         transform: scale(1.5);
         transition: transform 0.5s;
     }
@@ -886,17 +788,11 @@ hr.solid {
         display: none;
     }
 
-    #popup-to-do, #popup-notes{    
-        /* width: 450px; */
+    #popup-to-do, #popup-notes{   
         margin-left: auto;
         margin-right: auto;
         transform: scale(1);
-        /* margin-top: -2%; */
-        transition: margin-left 1s,
-        margin-right 1s;
     }
-
-   
 }
  
 @media (max-width: 768px) {
@@ -904,24 +800,23 @@ hr.solid {
     .quote {
         left: 50%;
         transform: translateX(-50%);
-        top: 120px; /* Position it at the top */
-        bottom: auto; /* Remove bottom positioning */
+        top: 120px; 
+        bottom: auto; 
         text-align: center;
         max-width: 350px;
-        color: rgb(255, 219, 240); /* Change to your preferred color */
+        color: rgb(255, 219, 240); 
         background-color: rgba(252, 251, 251, 0);
     }
 
     #popup-to-do, #popup-notes{  
         margin-bottom: 10%; 
         transform: scale(0.9);
-        /* margin-top: -2%; */
-        transition: margin-left 1s,
-        margin-right 1s;
     }
 
     .top-bar-title{
-        transform: scale(0.6);
+        transform: scale(0.7);
+        transition: transform 0.3s ease;
+        transition: transform 0.3s ease-in;
      }
 }
 
@@ -931,7 +826,6 @@ hr.solid {
     #popup-to-do, #popup-notes{  
         margin-bottom: 10%; 
         transform: scale(0.8);
-        /* margin-top: -2%; */
     }
 
     .top-bar-title{

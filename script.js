@@ -72,7 +72,6 @@ enableDragScroll(todoList);
 
 const quotes = [
     " 'Believe you can and you're halfway there.' ",
-    " 'Success is not the key to happiness. Happiness is the key to success.' ",
     " 'The only way to do great work is to love what you do.' ",
     " 'You are never too old to set another goal or to dream a new dream.' ",
     " 'Small steps every day lead to big changes over time.' ",
@@ -94,8 +93,6 @@ changeQuote();
 
 //----------------------------------------------------------------------------------------
 
-// MAIN BUTTONS 
-
 const popupToDo = document.getElementById('popup-to-do');
 const popupNotes = document.getElementById('popup-notes');
 
@@ -113,38 +110,37 @@ const timerSection = document.querySelector('.container');
 
 const title = document.querySelector('.top-bar-title');
 
-// TO DO BUTTON
+//----------------------------------------------------------------------------------------
+
+// MAIN BUTTONS 
+
+
+//Pop-up todo and notes toggle
+function togglePopup(button, popup, otherButton, otherPopup) {
+    if (popup.style.display === 'block') {
+        popup.style.display = 'none';
+        button.classList.remove('active');
+    } else {
+        popup.style.display = 'block';
+        otherPopup.style.display = 'none';
+        button.classList.add('active');
+        otherButton.classList.remove('active');
+    }
+}
+
 document.getElementById('to-do-btn').addEventListener('click', function() {
-
-    // Check if the To-Do popup is already open
-    if (popupToDo.style.display === 'block') {
-        popupToDo.style.display = 'none'; // Close To-Do popup
-        todoBtn.classList.remove('active');
-    } else {
-        popupToDo.style.display = 'block'; // Open To-Do popup
-        popupNotes.style.display = 'none'; 
-        todoBtn.classList.add('active');
-        notesBtn.classList.remove('active');
-    }
+    togglePopup(todoBtn, popupToDo, notesBtn, popupNotes);
 });
 
-// NOTES BUTTON
 document.getElementById('notes-btn').addEventListener('click', function() {
-    // Check if the Notes popup is already open
-    if (popupNotes.style.display === 'block') {
-        popupNotes.style.display = 'none'; 
-        notesBtn.classList.remove('active');
-    } else {
-        popupNotes.style.display = 'block'; 
-        popupToDo.style.display = 'none'; 
-        notesBtn.classList.add('active');
-        todoBtn.classList.remove('active');
-    }
+    togglePopup(notesBtn, popupNotes, todoBtn, popupToDo);
 });
+
+
 
 let isExpanded = false; // Track whether elements are expanded
 
-// Handle Plus Button Click
+// Handles plus button click
 document.getElementById('plus-btn').addEventListener('click', function () {
 
     const width = window.innerWidth;
@@ -161,7 +157,6 @@ document.getElementById('plus-btn').addEventListener('click', function () {
     topBar.classList.add('expanded');
     timerSection.classList.add('expanded');
     overlayy.classList.add('expanded');
-   
     title.classList.add('expanded');
 
     popupToDo.style.display = 'block';
@@ -172,17 +167,15 @@ document.getElementById('plus-btn').addEventListener('click', function () {
     minusBtn.style.display = 'block';
     popupNotes.style.backgroundColor = 'rgba(31, 48, 38, 0)';
     popupToDo.style.backgroundColor = 'rgba(31, 48, 38, 0)';
-     timerSection.style.transform = 'scale(1.5)';
-     timerSection.style.transition = 'transform 0.5s';
-
-
+    timerSection.style.transform = 'scale(1.5)';
+    timerSection.style.transition = 'transform 0.5s';
     quoteElement.classList.add('top');
 
     isExpanded = true; // Set expanded state
-});
+    });
 
-// Handle Minus Button Click
-document.getElementById('minus-btn').addEventListener('click', function () {
+    // Handles minus button click
+    document.getElementById('minus-btn').addEventListener('click', function () {
    
     title.classList.remove('expanded');
 
@@ -205,15 +198,13 @@ document.getElementById('minus-btn').addEventListener('click', function () {
     popupToDo.style.backgroundColor = 'rgba(31, 48, 38, 0.685)';
     quoteElement.classList.remove('top');
 
-
     isExpanded = false; // Reset expanded state
 });
 
 
-// Handle Screen Resize for Media Queries
+// Handles scren resize 
 window.addEventListener('resize', function () {
     const width = window.innerWidth;
-    //const notesContainer = document.getElementById('popup-notes');
 
     if (width <= 1350 && isExpanded == true){
         popupToDo.style.transform = 'scale(0.9)';
@@ -241,6 +232,8 @@ window.addEventListener('resize', function () {
         timerSection.style.transform = 'scale(1.5)';
         quoteElement.classList.remove('top');
   
+        popupToDo.style.transition = 'transform 0.5s';
+        popupNotes.style.transition = 'transform 0.5s';
         if (isExpanded) {
             popupToDo.style.display = 'none';
             popupNotes.style.display = 'none';
@@ -261,6 +254,8 @@ window.addEventListener('resize', function () {
             timerSection.classList.remove('expanded');
             title.classList.remove('expanded');
             timerSection.style.transform = 'scale(1)';
+            popupToDo.style.transition = 'transform 0.5s';
+            popupNotes.style.transition = 'transform 0.5s';
         }
     }
 });
@@ -268,7 +263,6 @@ window.addEventListener('resize', function () {
 //---------------------------------------------------------------------------------------------
 
 // UPDATE AUDIO SOURCE 
-
 
 const playMusicBtn = document.getElementById('play-music-btn');
 const audio = document.getElementById('audio');
@@ -316,8 +310,7 @@ playMusicBtn.addEventListener('click', () => {
 });
 
 
-// //POMODORO TIMER
-
+// POMODORO TIMER
 
 // Request notification permission
 document.addEventListener("DOMContentLoaded", function () {
@@ -370,8 +363,6 @@ document.getElementById('save-settings-btn').addEventListener('click', function(
 });
 
 
-
-
 function updateNotificationSound() {
     // Get the audio element and the dropdown selection
     const notificationSound = document.getElementById('notification-sound');
@@ -392,6 +383,8 @@ function playNotificationSound() {
         console.error("Error playing notification sound:", error);
     });
 }
+
+
 
 // Pomodoro Timer
 let workTitle = document.getElementById('work');
@@ -444,7 +437,7 @@ function start() {
     startTime = Date.now();
     endTime = startTime + remainingTime * 1000;
 
-    interval = setInterval(updateTimer, 1000);
+    interval = setInterval(updateTimer, 1000);//kas sekundę atnaujinamas timeris
 
     document.getElementById('start').style.display = "none";
     document.getElementById('resume').style.display = "none";
@@ -724,13 +717,10 @@ const settingsBtn = document.getElementById('settings-btn');
 const settingsPopup = document.getElementById('settingsOverlay');
 const closePopupBtn = document.getElementById('close-popup');
 
-// Function to open the settings popup
 settingsBtn.addEventListener('click', () => {
     settingsPopup.style.display = 'block'; // Show the popup
-
 });
 
-// Function to close the settings popup
 closePopupBtn.addEventListener('click', () => {
     settingsPopup.style.display = 'none'; // Hide the popup
 });
