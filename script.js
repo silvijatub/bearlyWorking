@@ -2,6 +2,7 @@
 
 //BACKGROUND SETTINGS
 
+// Ensures all DOM elements (like .background-option and #bg2) are available when the script runs.
 document.addEventListener("DOMContentLoaded", function() {
     const backgroundOptions = document.querySelectorAll(".background-option");
     const defaultImage = document.getElementById("bg2"); 
@@ -28,8 +29,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function enableDragScroll(element) {
     let isDragging = false;
-    let startY;
-    let scrollTop;
+    let startY; //starting position
+    let scrollTop; //current scroll position
 
     // Mouse down event to start dragging
     element.addEventListener('mousedown', (e) => {
@@ -44,25 +45,26 @@ function enableDragScroll(element) {
         if (!isDragging) return; // If not dragging, exit
         e.preventDefault(); // Prevent text selection
         const y = e.pageY - element.offsetTop; // Current mouse Y position
-        const walk = (y - startY) * 1; // Calculate distance moved (2x for sensitivity)
+        const walk = (y - startY) * 1; // Computes the distance the mouse has moved since the drag started (x for sensitivity)
         element.scrollTop = scrollTop - walk; // Scroll the element
     });
 
     // Mouse up event to stop dragging
     element.addEventListener('mouseup', () => {
-        isDragging = false; // Stop dragging
-        element.style.cursor = 'grab'; // Reset cursor
+        isDragging = false; 
+        element.style.cursor = 'grab'; 
     });
 
     // Mouse leave event to stop dragging if mouse leaves the area
     element.addEventListener('mouseleave', () => {
-        isDragging = false; // Stop dragging
-        element.style.cursor = 'grab'; // Reset cursor
+        isDragging = false; 
+        element.style.cursor = 'grab'; 
     });
 }
 
 const notesDiv = document.getElementById('notesDiv');
 const todoList = document.getElementById('list-container');
+
 enableDragScroll(notesDiv);
 enableDragScroll(todoList);
 
@@ -87,6 +89,8 @@ function changeQuote() {
     const randomIndex = Math.floor(Math.random() * quotes.length);
     quoteElement.textContent = quotes[randomIndex];
 }
+
+// change quote every 15 seconds
 setInterval(changeQuote, 15000);
 
 changeQuote();
@@ -113,7 +117,6 @@ const title = document.querySelector('.top-bar-title');
 //----------------------------------------------------------------------------------------
 
 // MAIN BUTTONS 
-
 
 //Pop-up todo and notes toggle
 function togglePopup(button, popup, otherButton, otherPopup) {
@@ -169,9 +172,10 @@ document.getElementById('plus-btn').addEventListener('click', function () {
     popupToDo.style.backgroundColor = 'rgba(31, 48, 38, 0)';
     timerSection.style.transform = 'scale(1.5)';
     timerSection.style.transition = 'transform 0.5s';
+
     quoteElement.classList.add('top');
 
-    isExpanded = true; // Set expanded state
+    isExpanded = true; 
     });
 
     // Handles minus button click
@@ -202,7 +206,7 @@ document.getElementById('plus-btn').addEventListener('click', function () {
 });
 
 
-// Handles scren resize 
+// Handles screen resize 
 window.addEventListener('resize', function () {
     const width = window.innerWidth;
 
@@ -273,14 +277,12 @@ function updateAudioSource() {
     const selectedSound = document.getElementById('audio-selection').value;
 
     audio.src = selectedSound;
+    //atnaujinamas audio
     audio.load();
+
     playMusicBtn.classList.remove('crossed-off');
-
-    console.log(`Notification sound changed to: ${selectedSound}`);
+    console.log(`Background sound changed to: ${selectedSound}`);
 }
-
-// const audioElement = document.getElementById('audio');
-// const volumeControl = document.getElementById('volume-control');
 
 // Set the initial volume (matches the slider's initial value)
 audio.volume = volume.value;
@@ -318,7 +320,6 @@ document.addEventListener("DOMContentLoaded", function () {
         Notification.requestPermission().then(permission => {
             if (permission === "granted") {
                 console.log("Notification permission granted.");
-                // sendNotification("Welcome Back!", "Notifications are enabled for this session.");
             } else {
                 console.log("Notification permission denied.");
             }
@@ -330,8 +331,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
-
 //NOTIFICATIONS 
 var playSound = false;
 function sendNotification(title, message) {
@@ -342,7 +341,6 @@ function sendNotification(title, message) {
             icon: "img/logo_notif.png" 
         });
 
-         // Play sound only if explicitly requested
          if (playSound) {
             playNotificationSound();
         }
@@ -353,6 +351,7 @@ function sendNotification(title, message) {
 }
 
 
+// TIMER SETTINGS
 document.getElementById('save-settings-btn').addEventListener('click', function() {
 
     workTime = parseInt(document.getElementById('workingTime').value);
@@ -361,13 +360,12 @@ document.getElementById('save-settings-btn').addEventListener('click', function(
     resetTimer();
 });
 
-
+// notification settings
 function updateNotificationSound() {
     // Get the audio element and the dropdown selection
     const notificationSound = document.getElementById('notification-sound');
     const selectedSound = document.getElementById('notification-sound-selection').value;
 
-    // Update the source of the audio element
     notificationSound.src = selectedSound;
 
     // Preload the new sound
@@ -397,7 +395,7 @@ let workTime = 25;
 let shortBreakTime = 5; 
 let longBreakTime = 15; 
 
-let interval; //stores id of current pomodoro session time
+let interval; // stores the ID of the interval created by the setInterval function
 let startTime; //pradžios laikas
 let endTime; //pabaigos laikas
 let remainingTime = workTime * 60; // Remaining time of a current session in seconds
@@ -467,7 +465,6 @@ function updateTimer() {
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
 
-    // If either value is less than 10, it's padded with a leading zero for consistency
     document.getElementById('minutes').innerHTML = minutes < 10 ? '0' + minutes : minutes;
     document.getElementById('seconds').innerHTML = seconds < 10 ? '0' + seconds : seconds;
 }
@@ -589,7 +586,6 @@ window.onload = () => {
 
 //TO-DO LIST 
 
-
 const inputBox = document.getElementById("input-box");
 const listContainer = document.getElementById("list-container");
 
@@ -624,12 +620,7 @@ listContainer.addEventListener("click", function(e){
         e.target.parentElement.remove();
         saveData();
     }
-    else if(e.target.tagName === "IMG"){
-        e.target.parentElement.remove();
-        saveData();
-    }
-
-}, false);
+});
 
 function saveData(){
     localStorage.setItem("data", listContainer.innerHTML);
@@ -720,7 +711,7 @@ function clearAllNotes() {
     // Clear localStorage for notesData
     localStorage.removeItem("notesData");
     // Clear the notes container in the UI
-    notesContainer.innerHTML = ""; // This will remove all displayed notes
+    notesContainer.innerHTML = ""; 
 }
 
 
